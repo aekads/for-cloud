@@ -17,7 +17,6 @@ const api = require('./src/controllers/api.controller');
 const moment = require('moment-timezone');
 const axios = require('axios');
 
-const https = require('https');
 
 const { S3Client } = require('@aws-sdk/client-s3');
 const multer = require('multer');
@@ -25,13 +24,6 @@ const multerS3 = require('multer-s3');
 const { Pool } = require('pg');
 const AWS = require('aws-sdk');
 
-
-// SSL/TLS configuration: Use a more secure protocol version
-const agent = new https.Agent({
-  rejectUnauthorized: false, // Disable SSL verification (not recommended for production)
-  minVersion: 'TLSv1.2', // Ensure at least TLS 1.2 is used
-  maxVersion: 'TLSv1.3', // Optionally limit to TLS 1.3
-});
 
 
 
@@ -43,7 +35,6 @@ const s3 = new S3Client({
     accessKeyId: process.env.CLOUDFLARE_ACCESS_KEY_ID,
     secretAccessKey: process.env.CLOUDFLARE_SECRET_ACCESS_KEY
   },
-  requestHandler: new https.Agent(agent)
 });
 
 
